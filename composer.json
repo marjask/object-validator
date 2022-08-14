@@ -1,0 +1,28 @@
+{
+    "name": "marjask/object-validator",
+    "description": "A simple and flexible validator that verifies the correctness of objects.",
+    "type": "library",
+    "license": "MIT License",
+    "autoload": {
+        "psr-4": {
+            "Marjask\\ObjectValidator\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mariusz"
+        }
+    ],
+    "require": {
+      "ext-mbstring": "*"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^6.1",
+        "phpunit/phpunit": "^9.5"
+    },
+    "scripts": {
+        "tests": [
+            "php vendor/bin/phpunit src/Tests"
+        ]
+    }
+}
