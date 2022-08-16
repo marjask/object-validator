@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Marjask\ObjectValidator\Tests\Constraints;
+namespace ObjectValidator\Tests\Constraints;
 
-use Marjask\ObjectValidator\Constraints\AlsoRequiredIfValueIs;
-use Marjask\ObjectValidator\Constraints\Option\OptionAlsoRequiredIfValueIs;
+use Marjask\ObjectValidator\Constraints\AlsoRequiredOneOfIfValueIs;
+use Marjask\ObjectValidator\Constraints\Option\OptionAlsoRequiredOneOfIfValueIs;
 use Marjask\ObjectValidator\ConstraintViolationList;
 
-class AlsoRequiredIfValueIsTest extends AbstractConstraintsTest
+class AlsoRequiredOneOfIfValueIsTest extends AbstractConstraintsTest
 {
     public function testSuccessOneField(): void
     {
-        $constraint = new AlsoRequiredIfValueIs(
-            new OptionAlsoRequiredIfValueIs(
+        $constraint = new AlsoRequiredOneOfIfValueIs(
+            new OptionAlsoRequiredOneOfIfValueIs(
                 expectedValue: '123',
                 fields: ['test']
             )
@@ -31,14 +31,15 @@ class AlsoRequiredIfValueIsTest extends AbstractConstraintsTest
 
     public function testFailedOneField(): void
     {
-        $constraint = new AlsoRequiredIfValueIs(
-            new OptionAlsoRequiredIfValueIs(
+        $constraint = new AlsoRequiredOneOfIfValueIs(
+            new OptionAlsoRequiredOneOfIfValueIs(
                 expectedValue: '123',
-                fields: ['test']
+                fields: ['beta']
             )
         );
 
         $object = $this->getObjectToValidate()
+            ->setTest('pop')
             ->setMain('123');
 
         $violations = $constraint->validate($object, 'main');
@@ -49,8 +50,8 @@ class AlsoRequiredIfValueIsTest extends AbstractConstraintsTest
 
     public function testSuccessTwoField(): void
     {
-        $constraint = new AlsoRequiredIfValueIs(
-            new OptionAlsoRequiredIfValueIs(
+        $constraint = new AlsoRequiredOneOfIfValueIs(
+            new OptionAlsoRequiredOneOfIfValueIs(
                 expectedValue: '123',
                 fields: ['test', 'beta']
             )
@@ -58,8 +59,7 @@ class AlsoRequiredIfValueIsTest extends AbstractConstraintsTest
 
         $object = $this->getObjectToValidate()
             ->setTest('pop')
-            ->setMain('123')
-            ->setBeta(1);
+            ->setMain('123');
 
         $violations = $constraint->validate($object, 'main');
 
@@ -69,14 +69,15 @@ class AlsoRequiredIfValueIsTest extends AbstractConstraintsTest
 
     public function testFailedTwoField(): void
     {
-        $constraint = new AlsoRequiredIfValueIs(
-            new OptionAlsoRequiredIfValueIs(
+        $constraint = new AlsoRequiredOneOfIfValueIs(
+            new OptionAlsoRequiredOneOfIfValueIs(
                 expectedValue: '123',
-                fields: ['test', 'beta']
+                fields: ['gamma', 'beta']
             )
         );
 
         $object = $this->getObjectToValidate()
+            ->setTest('pop')
             ->setMain('123');
 
         $violations = $constraint->validate($object, 'main');

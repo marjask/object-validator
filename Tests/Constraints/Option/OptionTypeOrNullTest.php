@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Marjask\ObjectValidator\Tests\Constraints\Option;
+namespace ObjectValidator\Tests\Constraints\Option;
 
-use Marjask\ObjectValidator\Constraints\Option\OptionType;
+use Marjask\ObjectValidator\Constraints\Option\OptionTypeOrNull;
 use PHPUnit\Framework\TestCase;
 
-class OptionTypeTest extends TestCase
+class OptionTypeOrNullTest extends TestCase
 {
     /**
-     * @dataProvider \Marjask\ObjectValidator\Tests\Constraints\Option\OptionTypeDataProvider::data()
+     * @dataProvider \ObjectValidator\Tests\Constraints\Option\OptionTypeOrNullDataProvider::data()
      */
     public function testCreate(string $type, ?string $customMessage, ?array $messageParameters): void
     {
-        $constraint = new OptionType(
+        $constraint = new OptionTypeOrNull(
             type: $type,
             customMessage: $customMessage,
             messageParameters: $messageParameters,

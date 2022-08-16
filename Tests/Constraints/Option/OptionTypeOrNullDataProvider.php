@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Marjask\ObjectValidator\Tests\Constraints\Option;
+namespace ObjectValidator\Tests\Constraints\Option;
 
 use DateTime;
 use Generator;
 
-final class OptionTypeDataProvider
+final class OptionTypeOrNullDataProvider
 {
     public static function data(): Generator
     {

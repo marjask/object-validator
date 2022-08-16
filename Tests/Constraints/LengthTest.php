@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Marjask\ObjectValidator\Tests\Constraints;
+namespace ObjectValidator\Tests\Constraints;
 
 use Marjask\ObjectValidator\Constraints\Length;
 use Marjask\ObjectValidator\Constraints\Option\OptionLength;
@@ -11,7 +11,7 @@ use Marjask\ObjectValidator\ConstraintViolationList;
 class LengthTest extends AbstractConstraintsTest
 {
     /**
-     * @dataProvider \Marjask\ObjectValidator\Tests\Constraints\LengthDataProvider::dataToSuccess
+     * @dataProvider \ObjectValidator\Tests\Constraints\LengthDataProvider::dataToSuccess()
      */
     public function testSuccessLength(?int $min, ?int $max, ?string $value): void
     {
@@ -32,7 +32,7 @@ class LengthTest extends AbstractConstraintsTest
     }
 
     /**
-     * @dataProvider \Marjask\ObjectValidator\Tests\Constraints\LengthDataProvider::dataToFailed
+     * @dataProvider \ObjectValidator\Tests\Constraints\LengthDataProvider::dataToFailed()
      */
     public function testFailedLength(?int $min, ?int $max, ?string $value): void
     {

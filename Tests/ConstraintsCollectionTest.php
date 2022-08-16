@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Marjask\ObjectValidator\Tests;
+namespace ObjectValidator\Tests;
 
 use Marjask\ObjectValidator\ConstraintsCollection;
 use PHPUnit\Framework\TestCase;

@@ -8,6 +8,11 @@
             "Marjask\\ObjectValidator\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "ObjectValidator\\Tests\\": "Tests/"
+        }
+    },
     "authors": [
         {
             "name": "Mariusz"
@@ -23,7 +28,7 @@
     },
     "scripts": {
         "tests": [
-            "php vendor/bin/phpunit src/Tests"
+            "php vendor/bin/phpunit Tests"
         ]
     }
 }

@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Marjask\ObjectValidator\Tests\Constraints;
+namespace ObjectValidator\Tests\Constraints;
 
-use Marjask\ObjectValidator\Constraints\Option\OptionType;
-use Marjask\ObjectValidator\Constraints\Type;
+use Marjask\ObjectValidator\Constraints\Option\OptionTypeOrNull;
+use Marjask\ObjectValidator\Constraints\TypeOrNull;
 use Marjask\ObjectValidator\ConstraintViolationList;
 
-class TypeTest extends AbstractConstraintsTest
+class TypeOrNullTest extends AbstractConstraintsTest
 {
     /**
-     * @dataProvider \Marjask\ObjectValidator\Tests\Constraints\TypeDataProvider::dataToSuccess
+     * @dataProvider \ObjectValidator\Tests\Constraints\TypeOrNullDataProvider::dataToSuccess()
      */
     public function testSuccessType(string $type, mixed $value): void
     {
-        $constraint = new Type(
-            new OptionType($type)
+        $constraint = new TypeOrNull(
+            new OptionTypeOrNull($type)
         );
 
         $object = $this->getObjectToValidate()
@@ -29,12 +29,12 @@ class TypeTest extends AbstractConstraintsTest
     }
 
     /**
-     * @dataProvider \Marjask\ObjectValidator\Tests\Constraints\TypeDataProvider::dataToFailed
+     * @dataProvider \ObjectValidator\Tests\Constraints\TypeOrNullDataProvider::dataToFailed()
      */
     public function testFailedLength(string $type, mixed $value): void
     {
-        $constraint = new Type(
-            new OptionType($type)
+        $constraint = new TypeOrNull(
+            new OptionTypeOrNull($type)
         );
 
         $object = $this->getObjectToValidate()
