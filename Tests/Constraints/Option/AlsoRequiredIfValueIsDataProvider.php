@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Marjask\ObjectValidator\Tests\Constraints\Option;
+namespace ObjectValidator\Tests\Constraints\Option;
 
 use Generator;
 
-final class AlsoRequiredOneOfIfValueIsDataProvider
+final class AlsoRequiredIfValueIsDataProvider
 {
     public static function data(): Generator
     {
@@ -19,7 +19,7 @@ final class AlsoRequiredOneOfIfValueIsDataProvider
         yield [
             'expectedValue' => '123',
             'fields' => ['phpunit'],
-            'customMessage' => 'Also required one of %s when value is %s.',
+            'customMessage' => 'Also required %s when value is %s.',
             'messageParameters' => ['phpunit', '234'],
         ];
     }

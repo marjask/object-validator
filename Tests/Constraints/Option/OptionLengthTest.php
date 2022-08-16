@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Marjask\ObjectValidator\Tests\Constraints\Option;
+namespace ObjectValidator\Tests\Constraints\Option;
 
 use Marjask\ObjectValidator\Constraints\Option\OptionLength;
 use PHPUnit\Framework\TestCase;
@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 class OptionLengthTest extends TestCase
 {
     /**
-     * @dataProvider \Marjask\ObjectValidator\Tests\Constraints\Option\OptionLengthDataProvider::data()
+     * @dataProvider \ObjectValidator\Tests\Constraints\Option\OptionLengthDataProvider::data()
      */
     public function testCreate(?int $min, ?int $max, ?string $customMessage, ?array $messageParameters): void
     {

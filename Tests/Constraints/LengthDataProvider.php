@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Marjask\ObjectValidator\Tests\Constraints;
+namespace ObjectValidator\Tests\Constraints;
 
 use Generator;
 

@@ -2,37 +2,34 @@
 
 declare(strict_types=1);
 
-namespace Marjask\ObjectValidator\Tests\Constraints\Option;
+namespace ObjectValidator\Tests\Constraints\Option;
 
+use DateTime;
 use Generator;
 
-final class OptionLengthDataProvider
+final class OptionTypeDataProvider
 {
     public static function data(): Generator
     {
         yield [
-            'min' => 2,
-            'max' => 4,
+            'type' => 'string',
             'customMessage' => null,
             'messageParameters' => null,
         ];
         yield [
-            'min' => null,
-            'max' => 4,
+            'type' => 'int',
             'customMessage' => null,
             'messageParameters' => null,
         ];
         yield [
-            'min' => 7,
-            'max' => null,
+            'type' => DateTime::class,
             'customMessage' => null,
             'messageParameters' => null,
         ];
         yield [
-            'min' => 7,
-            'max' => 15,
-            'customMessage' => 'Length %s must be between %s and %s.',
-            'messageParameters' => ['phpunit', 10, 20],
+            'type' => 'string',
+            'customMessage' => 'Property %s must be %s',
+            'messageParameters' => ['phpunit', 'string'],
         ];
     }
 }

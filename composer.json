@@ -8,13 +8,19 @@
             "Marjask\\ObjectValidator\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "ObjectValidator\\Tests\\": "Tests/"
+        }
+    },
     "authors": [
         {
             "name": "Mariusz"
         }
     ],
     "require": {
-      "ext-mbstring": "*"
+      "ext-mbstring": "*",
+      "php": ">=8.0"
     },
     "require-dev": {
         "symfony/var-dumper": "^6.1",
@@ -22,7 +28,7 @@
     },
     "scripts": {
         "tests": [
-            "php vendor/bin/phpunit src/Tests"
+            "php vendor/bin/phpunit Tests"
         ]
     }
 }
