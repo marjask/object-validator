@@ -8,30 +8,31 @@ use Marjask\ObjectValidator\Constraints\Option\OptionAlsoRequiredOneOfIfValueIs;
 use Marjask\ObjectValidator\ConstraintViolation;
 use Marjask\ObjectValidator\ConstraintViolationList;
 use Marjask\ObjectValidator\Exception\UnexpectedTypeException;
-use Marjask\ObjectValidator\ObjectValidator;
 
 class AlsoRequiredOneOfIfValueIs extends AbstractConstraint
 {
     private const MESSAGE = 'Also required one of fields %s when property value is %s.';
 
-    public function validate(ObjectValidator $object, string $property): ConstraintViolationList
+    public function validate(mixed $input, string $parameter): ConstraintViolationList
     {
         if (!$this->option instanceof OptionAlsoRequiredOneOfIfValueIs) {
             throw new UnexpectedTypeException($this->option, OptionAlsoRequiredOneOfIfValueIs::class);
         }
 
-        $valueProperty = $this->getValueProperty($object, $property);
+        $this->throwIfInputIsNotArrayAndIsNotObject($input);
+
+        $value = $this->getValue($input, $parameter);
 
         if (
-            $valueProperty === $this->option->getExpectedValue()
-            || $this->toString($valueProperty) === $this->toString($this->option->getExpectedValue())
+            $value === $this->option->getExpectedValue()
+            || $this->toString($value) === $this->toString($this->option->getExpectedValue())
         ) {
             $expectedFieldExists = false;
 
             foreach ($this->option->getFields() as $field) {
-                $value = $this->getValueProperty($object, $field);
+                $valueField = $this->getValue($input, $field);
 
-                if ($value !== null) {
+                if ($valueField !== null) {
                     $expectedFieldExists = true;
                     break;
                 }
@@ -40,8 +41,8 @@ class AlsoRequiredOneOfIfValueIs extends AbstractConstraint
             if ($expectedFieldExists === false) {
                 $this->violations->addViolation(
                     new ConstraintViolation(
-                        $this->getMessage(self::MESSAGE, implode(', ', $this->option->getFields()), $valueProperty),
-                        $property,
+                        $this->getMessage(self::MESSAGE, implode(', ', $this->option->getFields()), $value),
+                        $parameter,
                         $this
                     )
                 );

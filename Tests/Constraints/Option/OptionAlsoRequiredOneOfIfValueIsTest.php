@@ -7,10 +7,10 @@ namespace ObjectValidator\Tests\Constraints\Option;
 use Marjask\ObjectValidator\Constraints\Option\OptionAlsoRequiredOneOfIfValueIs;
 use PHPUnit\Framework\TestCase;
 
-class AlsoRequiredOneOfIfValueIsTest extends TestCase
+class OptionAlsoRequiredOneOfIfValueIsTest extends TestCase
 {
     /**
-     * @dataProvider \ObjectValidator\Tests\Constraints\Option\AlsoRequiredOneOfIfValueIsDataProvider::data()
+     * @dataProvider \ObjectValidator\Tests\Constraints\Option\DataProvider\OptionAlsoRequiredOneOfIfValueIsDataProvider::data()
      */
     public function testCreate(
         mixed $expectedValue,

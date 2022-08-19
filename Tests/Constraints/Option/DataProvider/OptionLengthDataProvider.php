@@ -2,34 +2,37 @@
 
 declare(strict_types=1);
 
-namespace ObjectValidator\Tests\Constraints\Option;
+namespace ObjectValidator\Tests\Constraints\Option\DataProvider;
 
-use DateTime;
 use Generator;
 
-final class OptionTypeOrNullDataProvider
+final class OptionLengthDataProvider
 {
     public static function data(): Generator
     {
         yield [
-            'type' => 'string',
+            'min' => 2,
+            'max' => 4,
             'customMessage' => null,
             'messageParameters' => null,
         ];
         yield [
-            'type' => 'int',
+            'min' => null,
+            'max' => 4,
             'customMessage' => null,
             'messageParameters' => null,
         ];
         yield [
-            'type' => DateTime::class,
+            'min' => 7,
+            'max' => null,
             'customMessage' => null,
             'messageParameters' => null,
         ];
         yield [
-            'type' => 'string',
-            'customMessage' => 'Property %s must be %s',
-            'messageParameters' => ['phpunit', 'string'],
+            'min' => 7,
+            'max' => 15,
+            'customMessage' => 'Length %s must be between %s and %s.',
+            'messageParameters' => ['phpunit', 10, 20],
         ];
     }
 }

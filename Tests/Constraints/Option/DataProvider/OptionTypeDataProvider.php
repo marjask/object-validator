@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ObjectValidator\Tests\Constraints\Option;
+namespace ObjectValidator\Tests\Constraints\Option\DataProvider;
 
 use DateTime;
 use Generator;

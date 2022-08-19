@@ -4,22 +4,18 @@ declare(strict_types=1);
 
 namespace ObjectValidator\Tests\Constraints\Option;
 
-use Marjask\ObjectValidator\Constraints\Option\OptionAlsoRequiredIfValueIs;
+use Marjask\ObjectValidator\Constraints\Option\OptionAlsoRequired;
+use Marjask\ObjectValidator\Constraints\Option\OptionAtLeast;
 use PHPUnit\Framework\TestCase;
 
-class AlsoRequiredIfValueIsTest extends TestCase
+class OptionAtLeastTest extends TestCase
 {
     /**
-     * @dataProvider \ObjectValidator\Tests\Constraints\Option\AlsoRequiredIfValueIsDataProvider::data()
+     * @dataProvider \ObjectValidator\Tests\Constraints\Option\DataProvider\OptionAtLeastDataProvider::data()
      */
-    public function testCreate(
-        mixed $expectedValue,
-        array $fields,
-        ?string $customMessage,
-        ?array $messageParameters
-    ): void {
-        $constraint = new OptionAlsoRequiredIfValueIs(
-            expectedValue: $expectedValue,
+    public function testCreate(array $fields, ?string $customMessage, ?array $messageParameters): void
+    {
+        $constraint = new OptionAtLeast(
             fields: $fields,
             customMessage: $customMessage,
             messageParameters: $messageParameters,

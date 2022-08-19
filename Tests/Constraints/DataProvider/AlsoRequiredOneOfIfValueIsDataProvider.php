@@ -1,0 +1,99 @@
+<?php
+
+declare(strict_types=1);
+
+namespace ObjectValidator\Tests\Constraints\DataProvider;
+
+use DateTime;
+use Generator;
+use ObjectValidator\Tests\Constraints\ObjectGenerator;
+use stdClass;
+
+final class AlsoRequiredOneOfIfValueIsDataProvider extends ObjectGenerator
+{
+    public static function dataToSuccess(): Generator
+    {
+        yield [
+            'expectedValue' => '123',
+            'fields' => ['test'],
+            'input' => self::getObjectToValidate()
+                ->setTest('pop')
+                ->setMain('123'),
+            'parameter' => 'main',
+        ];
+        yield [
+            'expectedValue' => '123',
+            'fields' => ['test', 'beta'],
+            'input' => self::getObjectToValidate()
+                ->setTest('pop')
+                ->setMain('123'),
+            'parameter' => 'main',
+        ];
+        yield [
+            'expectedValue' => '123',
+            'fields' => ['test'],
+            'input' => ['test' => 'pop', 'main' => '123'],
+            'parameter' => 'main',
+        ];
+        yield [
+            'expectedValue' => '123',
+            'fields' => ['test', 'beta'],
+            'input' => ['test' => 'pop', 'main' => '123'],
+            'parameter' => 'main',
+        ];
+    }
+
+    public static function dataToFailed(): Generator
+    {
+        yield [
+            'expectedValue' => '123',
+            'fields' => ['beta'],
+            'input' => self::getObjectToValidate()
+                ->setTest('pop')
+                ->setMain('123'),
+            'parameter' => 'main',
+        ];
+        yield [
+            'expectedValue' => '123',
+            'fields' => ['gamma', 'beta'],
+            'input' => self::getObjectToValidate()
+                ->setTest('pop')
+                ->setMain('123'),
+            'parameter' => 'main',
+        ];
+        yield [
+            'expectedValue' => '123',
+            'fields' => ['beta'],
+            'input' => ['test' => 'pop', 'main' => '123'],
+            'parameter' => 'main',
+        ];
+        yield [
+            'expectedValue' => '123',
+            'fields' => ['gamma', 'beta'],
+            'input' => ['test' => 'pop', 'main' => '123'],
+            'parameter' => 'main',
+        ];
+    }
+
+    public static function dataThrowException(): Generator
+    {
+        yield [
+            'expectedValue' => '123',
+            'fields' => ['gamma', 'beta'],
+            'input' => 123,
+            'parameter' => 'main',
+        ];
+        yield [
+            'expectedValue' => '123',
+            'fields' => ['gamma', 'beta'],
+            'input' => true,
+            'parameter' => 'main',
+        ];
+        yield [
+            'expectedValue' => '123',
+            'fields' => ['gamma', 'beta'],
+            'input' => null,
+            'parameter' => 'main',
+        ];
+    }
+}

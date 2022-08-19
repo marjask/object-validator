@@ -4,23 +4,16 @@ declare(strict_types=1);
 
 namespace ObjectValidator\Tests\Constraints;
 
-use Marjask\ObjectValidator\ObjectValidator;
-use PHPUnit\Framework\TestCase;
-
-abstract class AbstractConstraintsTest extends TestCase
+abstract class ObjectGenerator
 {
-    protected function getObjectToValidate(): ObjectValidator
+    protected static function getObjectToValidate()
     {
-        return new class extends ObjectValidator {
+        return new class {
 
             private mixed $test;
             private mixed $main;
             private mixed $gamma;
             private mixed $beta;
-
-            protected function loadConstraints(): void
-            {
-            }
 
             public function setTest(mixed $test): self
             {
