@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 class OptionLengthTest extends TestCase
 {
     /**
-     * @dataProvider \ObjectValidator\Tests\Constraints\Option\OptionLengthDataProvider::data()
+     * @dataProvider \ObjectValidator\Tests\Constraints\Option\DataProvider\OptionLengthDataProvider::data()
      */
     public function testCreate(?int $min, ?int $max, ?string $customMessage, ?array $messageParameters): void
     {

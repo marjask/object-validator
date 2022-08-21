@@ -2,25 +2,23 @@
 
 declare(strict_types=1);
 
-namespace ObjectValidator\Tests\Constraints\Option;
+namespace ObjectValidator\Tests\Constraints\Option\DataProvider;
 
 use Generator;
 
-final class AlsoRequiredOneOfIfValueIsDataProvider
+final class OptionAtLeastDataProvider
 {
     public static function data(): Generator
     {
         yield [
-            'expectedValue' => '123',
             'fields' => ['phpunit'],
             'customMessage' => null,
             'messageParameters' => null,
         ];
         yield [
-            'expectedValue' => '123',
             'fields' => ['phpunit'],
-            'customMessage' => 'Also required one of %s when value is %s.',
-            'messageParameters' => ['phpunit', '234'],
+            'customMessage' => 'Also required %s when %s.',
+            'messageParameters' => ['phpunit', 'is test'],
         ];
     }
 }

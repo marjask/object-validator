@@ -8,7 +8,6 @@ use Marjask\ObjectValidator\Constraints\Option\OptionType;
 use Marjask\ObjectValidator\ConstraintViolation;
 use Marjask\ObjectValidator\ConstraintViolationList;
 use Marjask\ObjectValidator\Exception\UnexpectedTypeException;
-use Marjask\ObjectValidator\ObjectValidator;
 
 class Type extends AbstractConstraint
 {
@@ -46,13 +45,13 @@ class Type extends AbstractConstraint
         'xdigit' => 'ctype_xdigit',
     ];
 
-    public function validate(ObjectValidator $object, string $property): ConstraintViolationList
+    public function validate(mixed $input, string $parameter): ConstraintViolationList
     {
         if (!$this->option instanceof OptionType) {
             throw new UnexpectedTypeException($this->option, OptionType::class);
         }
 
-        $value = $this->getValueProperty($object, $property);
+        $value = $this->getValue($input, $parameter);
         $expectedType = $this->option->getType();
 
         if ($this->isValidTypeByNativeFunctions($expectedType, $value)) {
@@ -62,8 +61,8 @@ class Type extends AbstractConstraint
         if (!$value instanceof $expectedType) {
             $this->violations->addViolation(
                 new ConstraintViolation(
-                    $this->getMessage(self::MESSAGE, $property, $expectedType),
-                    $property,
+                    $this->getMessage(self::MESSAGE, $parameter, $expectedType),
+                    $parameter,
                     $this
                 )
             );

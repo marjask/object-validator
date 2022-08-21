@@ -1,6 +1,39 @@
 # Object Validator
 ## Usage example
+Query class:
 ```php
+class UserQuery
+{
+    protected string $username;
+    protected bool $activated;
+    protected ?DateTime $registerAt;
+
+    public  function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public  function setActivated(bool $activated): self
+    {
+        $this->activated = $activated;
+
+        return $this;
+    }
+
+    public  function setRegisterAt(DateTime $registerAt): self
+    {
+        $this->registerAt = $registerAt;
+
+        return $this;
+    }
+}
+```
+Validator:
+
+```php
+use Marjask\ObjectValidator\AbstractValidator;
 use Marjask\ObjectValidator\Constraints\AlsoRequired;
 use Marjask\ObjectValidator\Constraints\Length;
 use Marjask\ObjectValidator\Constraints\Option\OptionAlsoRequired;
@@ -9,13 +42,9 @@ use Marjask\ObjectValidator\Constraints\Option\OptionType;
 use Marjask\ObjectValidator\Constraints\Type;
 use Marjask\ObjectValidator\Constraints\TypeOrNull;
 
-class UserQuery extends \Marjask\ObjectValidator\ObjectValidator
+final class UserQueryValidator extends AbstractValidator
 {
-    protected string $username;
-    protected bool $activated;
-    protected ?DateTime $registerAt;
-    
-    protected function loadConstraints(): void
+    public function loadConstraints(): void
     {
         $this->addConstraint(
             'username',
@@ -45,29 +74,10 @@ class UserQuery extends \Marjask\ObjectValidator\ObjectValidator
             )
         );
     }
-    
-    public  function setUsername(string $username): self
-    {
-        $this->username = $username;
-        
-        return $this;
-    }
-    
-    public  function setActivated(bool $activated): self
-    {
-        $this->activated = $activated;
-        
-        return $this;
-    }
-    
-    public  function setRegisterAt(DateTime $registerAt): self
-    {
-        $this->registerAt = $registerAt;
-        
-        return $this;
-    }
 }
-
+```
+Usage:
+```php
 $query = (new UserQuery())
     ->setActivated(true)
     ->setUsername('Mariusz')
@@ -76,11 +86,11 @@ $query = (new UserQuery())
     );
 
 // return true/false
-var_dump($query->isValid());
+var_dump(UserQueryValidator::create()->isValid($query));
 
 // return \Marjask\ObjectValidator\ConstraintViolationList
-var_dump($query->getViolations());
+var_dump(UserQueryValidator::create()->getViolations($query));
 
 // throw exception \Marjask\ObjectValidator\Exception\InvalidValidationException
-$query->throwIfInvalid();
+UserQueryValidator::create()->throwIfInvalid($query);
 ```

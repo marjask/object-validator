@@ -8,19 +8,18 @@ use Marjask\ObjectValidator\Constraints\Option\OptionTypeOrNull;
 use Marjask\ObjectValidator\ConstraintViolation;
 use Marjask\ObjectValidator\ConstraintViolationList;
 use Marjask\ObjectValidator\Exception\UnexpectedTypeException;
-use Marjask\ObjectValidator\ObjectValidator;
 
 class TypeOrNull extends Type
 {
     private const MESSAGE = 'Property %s must be instanceof %s or be null.';
 
-    public function validate(ObjectValidator $object, string $property): ConstraintViolationList
+    public function validate(mixed $input, string $parameter): ConstraintViolationList
     {
         if (!$this->option instanceof OptionTypeOrNull) {
             throw new UnexpectedTypeException($this->option, OptionTypeOrNull::class);
         }
 
-        $value = $this->getValueProperty($object, $property);
+        $value = $this->getValue($input, $parameter);
 
         if ($value === null) {
             return $this->violations;
@@ -35,8 +34,8 @@ class TypeOrNull extends Type
         if (!$value instanceof $expectedType) {
             $this->violations->addViolation(
                 new ConstraintViolation(
-                    $this->getMessage(self::MESSAGE, $property, $expectedType),
-                    $property,
+                    $this->getMessage(self::MESSAGE, $parameter, $expectedType),
+                    $parameter,
                     $this
                 )
             );

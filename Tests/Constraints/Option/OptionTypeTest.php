@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 class OptionTypeTest extends TestCase
 {
     /**
-     * @dataProvider \ObjectValidator\Tests\Constraints\Option\OptionTypeDataProvider::data()
+     * @dataProvider \ObjectValidator\Tests\Constraints\Option\DataProvider\OptionTypeDataProvider::data()
      */
     public function testCreate(string $type, ?string $customMessage, ?array $messageParameters): void
     {

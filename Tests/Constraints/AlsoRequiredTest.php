@@ -4,77 +4,60 @@ declare(strict_types=1);
 
 namespace ObjectValidator\Tests\Constraints;
 
+use InvalidArgumentException;
 use Marjask\ObjectValidator\Constraints\AlsoRequired;
 use Marjask\ObjectValidator\Constraints\Option\OptionAlsoRequired;
 use Marjask\ObjectValidator\ConstraintViolationList;
+use PHPUnit\Framework\TestCase;
 
-class AlsoRequiredTest extends AbstractConstraintsTest
+class AlsoRequiredTest extends TestCase
 {
-    public function testSuccessOneField(): void
+    /**
+     * @dataProvider \ObjectValidator\Tests\Constraints\DataProvider\AlsoRequiredDataProvider::dataToSuccess()
+     */
+    public function testSuccess(array $fields, mixed $input, string $parameter): void
     {
         $constraint = new AlsoRequired(
             new OptionAlsoRequired(
-                fields: ['test']
+                fields: $fields
             )
         );
 
-        $object = $this->getObjectToValidate()
-            ->setTest('123');
-
-        $violations = $constraint->validate($object, 'main');
+        $violations = $constraint->validate($input, $parameter);
 
         $this->assertInstanceOf(ConstraintViolationList::class, $violations);
         $this->assertTrue($violations->isEmpty());
     }
 
-    public function testFailedOneField(): void
+    /**
+     * @dataProvider \ObjectValidator\Tests\Constraints\DataProvider\AlsoRequiredDataProvider::dataToFailed()
+     */
+    public function testObjectValidateFailedOneField(array $fields, mixed $input, string $parameter): void
     {
         $constraint = new AlsoRequired(
             new OptionAlsoRequired(
-                fields: ['test']
+                fields: $fields
             )
         );
 
-        $object = $this->getObjectToValidate();
-
-        $violations = $constraint->validate($object, 'main');
+        $violations = $constraint->validate($input, $parameter);
 
         $this->assertInstanceOf(ConstraintViolationList::class, $violations);
         $this->assertFalse($violations->isEmpty());
     }
 
-    public function testSuccessTwoFields(): void
+    /**
+     * @dataProvider \ObjectValidator\Tests\Constraints\DataProvider\AlsoRequiredDataProvider::dataThrowException()
+     */
+    public function testBasicTypesValidateSuccessTwoFields(array $fields, mixed $input, string $parameter): void
     {
         $constraint = new AlsoRequired(
             new OptionAlsoRequired(
-                fields: ['test', 'beta']
+                fields: $fields
             )
         );
 
-        $object = $this->getObjectToValidate()
-            ->setTest('123')
-            ->setBeta('123');
-
-        $violations = $constraint->validate($object, 'main');
-
-        $this->assertInstanceOf(ConstraintViolationList::class, $violations);
-        $this->assertTrue($violations->isEmpty());
-    }
-
-    public function testFailedTwoFields(): void
-    {
-        $constraint = new AlsoRequired(
-            new OptionAlsoRequired(
-                fields: ['test', 'beta']
-            )
-        );
-
-        $object = $this->getObjectToValidate()
-            ->setBeta('123');
-
-        $violations = $constraint->validate($object, 'main');
-
-        $this->assertInstanceOf(ConstraintViolationList::class, $violations);
-        $this->assertFalse($violations->isEmpty());
+        $this->expectException(InvalidArgumentException::class);
+        $constraint->validate($input, $parameter);
     }
 }
